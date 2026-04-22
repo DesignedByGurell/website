@@ -1023,16 +1023,58 @@
   }
 </script>
 <script>
-  // Get template from URL
-  const params = new URLSearchParams(window.location.hash.split('?')[1]);
+  // Get template from URL (query params)
+  const params = new URLSearchParams(window.location.search);
   const template = params.get('template');
 
   if (template) {
+    // Fill hidden input
     const input = document.getElementById('selectedTemplate');
     if (input) {
       input.value = template;
     }
+
+    // Show it to user (optional)
+    const text = document.getElementById('selectedTemplateText');
+    if (text) {
+      text.innerText = "Selected Template: " + template;
+    }
   }
 </script>
+<button id="backToTop" style="
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  display: none;
+  z-index: 1000;
+">
+  ↑ Top
+</button>
+
+<script>
+  const btn = document.getElementById("backToTop");
+
+  window.onscroll = function () {
+    if (document.documentElement.scrollTop > 200) {
+      btn.style.display = "block";
+    } else {
+      btn.style.display = "none";
+    }
+  };
+
+  btn.onclick = function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+</script>
+
 </body>
 </html>
