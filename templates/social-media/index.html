@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Alexandra Voss — Content Creator, Brand Partner & Growth Strategist. Building communities that convert." />
+  <title>Alexandra Voss · Personal Brand</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════════════════════ */
+    :root {
+      --bg:       #050505;
+      --accent:   #A020F0;
+      --accent-2: #6C00CC;
+      --accent-glow: rgba(160, 32, 240, 0.35);
+      --text:     #ffffff;
+      --text-muted: rgba(255,255,255,0.5);
+      --card:     #111111;
+      --card-border: rgba(255,255,255,0.07);
+      --glass:    rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.1);
+      --radius:   16px;
+      --radius-sm: 10px;
+      --max-w:    1200px;
+      --nav-h:    72px;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) transparent;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: clamp(20px, 5vw, 60px);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       GRAIN OVERLAY (luxury texture)
+    ═══════════════════════════════════════════════════════ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       CURSOR GLOW
+    ═══════════════════════════════════════════════════════ */
+    .cursor-glow {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(160,32,240,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      transition: left 0.15s ease, top 0.15s ease;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 100;
+      transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(5,5,5,0.8);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-btn {
+      display: none;
+    }
+
+    /* Mobile hamburger */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5,5,5,0.97);
+      backdrop-filter: blur(32px);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .mobile-nav a:hover { color: var(--accent); }
+
+    /* ═══════════════════════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════════════════════ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 30px;
+      border-radius: 60px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--text);
+      box-shadow: 0 0 0 0 transparent;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 8px 32px var(--accent-glow);
+    }
+
+    .btn-ghost {
+      background: var(--glass);
+      color: var(--text);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SCROLL REVEAL
+    ═══════════════════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION LABELS
+    ═══════════════════════════════════════════════════════ */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       1. HERO
+    ═══════════════════════════════════════════════════════ */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--nav-h);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient purple orbs */
+    #hero::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(160,32,240,0.15) 0%, transparent 65%);
+      top: -200px; right: -150px;
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(160,32,240,0.08) 0%, transparent 65%);
+      bottom: 0; left: -100px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: clamp(40px, 6vw, 100px);
+      width: 100%;
+      padding-block: 80px;
+    }
+
+    .hero-text { flex: 1 1 0; min-width: 0; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      border-radius: 60px;
+      padding: 7px 18px;
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.3; }
+    }
+
+    .hero-h1 {
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .hero-h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent) 0%, #E040FB 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 40px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+
+    .hero-social-proof {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .avatar-stack {
+      display: flex;
+    }
+    .avatar-stack img,
+    .avatar-stack .av {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      margin-left: -10px;
+      background: linear-gradient(135deg, var(--accent), #6C00CC);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700;
+      color: white;
+    }
+    .avatar-stack .av:first-child { margin-left: 0; }
+    .proof-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .proof-text strong { color: var(--text); }
+
+    /* Hero image */
+    .hero-image-wrap {
+      flex: 0 0 clamp(280px, 38vw, 480px);
+      position: relative;
+    }
+
+    .hero-img-frame {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      background: linear-gradient(135deg, #1a0a2e 0%, #0d0d0d 100%);
+      border: 1px solid var(--glass-border);
+    }
+
+    /* Placeholder image — replace with <img> in production */
+    .hero-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      color: rgba(160,32,240,0.3);
+      font-size: 0.8rem;
+      position: relative;
+    }
+    .hero-img-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 80%, rgba(160,32,240,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(160,32,240,0.08) 0%, transparent 50%);
+    }
+    .hero-img-placeholder svg {
+      width: 80px; height: 80px;
+      fill: rgba(160,32,240,0.25);
+      position: relative;
+    }
+    .hero-img-placeholder span {
+      position: relative;
+      letter-spacing: 0.1em;
+      font-size: 0.72rem;
+      font-weight: 500;
+    }
+
+    /* Floating glass card on image */
+    .hero-float-card {
+      position: absolute;
+      bottom: -20px; left: -24px;
+      background: var(--glass);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+    .float-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #6C00CC);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .float-icon svg { width: 20px; height: 20px; fill: white; }
+    .float-label { font-size: 0.68rem; color: var(--text-muted); font-weight: 500; }
+    .float-value { font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1; margin-top: 2px; }
+
+    .hero-float-card-2 {
+      position: absolute;
+      top: 24px; right: -24px;
+      background: var(--glass);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+      animation: float 4s ease-in-out 2s infinite;
+    }
+    .float-stars { color: #F59E0B; font-size: 0.82rem; letter-spacing: 2px; }
+    .float-review { font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; }
+    .float-review strong { color: var(--text); }
+
+    /* ═══════════════════════════════════════════════════════
+       2. ABOUT
+    ═══════════════════════════════════════════════════════ */
+    #about {
+      padding: clamp(80px, 10vw, 140px) 0;
+      position: relative;
+    }
+
+    .about-inner {
+      display: flex;
+      align-items: center;
+      gap: clamp(40px, 6vw, 100px);
+    }
+
+    .about-left { flex: 1 1 0; }
+    .about-right { flex: 1 1 0; }
+
+    .about-h2 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .about-h2 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .about-p {
+      font-size: 0.97rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .about-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 32px;
+    }
+    .chip {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 60px;
+      padding: 7px 18px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      backdrop-filter: blur(8px);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--text); }
+
+    /* About visual grid */
+    .about-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 12px;
+    }
+
+    .about-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .about-card:hover {
+      border-color: rgba(160,32,240,0.4);
+      transform: translateY(-4px);
+    }
+    .about-card.span-2 { grid-column: span 2; flex-direction: row; align-items: center; gap: 20px; }
+
+    .about-card-num {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--accent), #E040FB);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-card-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    .about-card-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(160,32,240,0.1);
+      border: 1px solid rgba(160,32,240,0.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .about-card-icon svg { width: 22px; height: 22px; fill: var(--accent); }
+
+    /* ═══════════════════════════════════════════════════════
+       3. SERVICES
+    ═══════════════════════════════════════════════════════ */
+    #services {
+      padding: clamp(80px, 10vw, 140px) 0;
+    }
+
+    .services-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 60px;
+    }
+
+    .services-h2 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+    .services-sub {
+      font-size: 0.97rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      max-width: 480px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: clamp(28px, 3vw, 40px);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(160,32,240,0.05) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .service-card:hover {
+      border-color: rgba(160,32,240,0.4);
+      transform: translateY(-6px);
+    }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-card-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 20px;
+      opacity: 0.6;
+    }
+
+    .service-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: rgba(160,32,240,0.1);
+      border: 1px solid rgba(160,32,240,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      transition: background 0.3s;
+    }
+    .service-card:hover .service-icon { background: rgba(160,32,240,0.2); }
+    .service-icon svg { width: 26px; height: 26px; fill: var(--accent); }
+
+    .service-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .service-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 24px;
+      transition: gap 0.2s;
+    }
+    .service-card:hover .service-link { gap: 10px; }
+
+    /* ═══════════════════════════════════════════════════════
+       4. SOCIAL STATS
+    ═══════════════════════════════════════════════════════ */
+    #stats {
+      padding: clamp(60px, 8vw, 100px) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stats-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(160,32,240,0.04) 0%, transparent 50%);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .stats-inner {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1 1 160px;
+    }
+
+    .stat-platform {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .stat-platform svg { width: 18px; height: 18px; }
+
+    .stat-num {
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, var(--text) 0%, rgba(255,255,255,0.6) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 60px;
+      background: var(--glass-border);
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       5. CONTENT GRID
+    ═══════════════════════════════════════════════════════ */
+    #content {
+      padding: clamp(80px, 10vw, 140px) 0;
+    }
+
+    .content-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .content-h2 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .content-item {
+      aspect-ratio: 16/9;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+    }
+
+    .content-thumb {
+      width: 100%; height: 100%;
+      transition: transform 0.45s cubic-bezier(.16,1,.3,1);
+    }
+    .content-item:hover .content-thumb { transform: scale(1.05); }
+
+    /* Placeholder thumbnails with different gradients */
+    .content-thumb-1 { background: linear-gradient(135deg, #1a0030 0%, #3d0a6b 50%, #0d0d0d 100%); }
+    .content-thumb-2 { background: linear-gradient(135deg, #001a30 0%, #0a3d6b 50%, #0d0d0d 100%); }
+    .content-thumb-3 { background: linear-gradient(135deg, #1a0030 0%, #6b0a3d 50%, #0d0d0d 100%); }
+    .content-thumb-4 { background: linear-gradient(135deg, #0d1a00 0%, #2d6b0a 50%, #0d0d0d 100%); }
+    .content-thumb-5 { background: linear-gradient(135deg, #1a1000 0%, #6b4a0a 50%, #0d0d0d 100%); }
+    .content-thumb-6 { background: linear-gradient(135deg, #00101a 0%, #0a4a6b 50%, #0d0d0d 100%); }
+
+    /* Inner icon/label for placeholder */
+    .thumb-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0.4;
+    }
+    .thumb-inner svg { width: 28px; height: 28px; fill: white; }
+    .thumb-inner span { font-size: 0.68rem; letter-spacing: 0.12em; font-weight: 600; color: white; }
+
+    .content-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .content-item:hover .content-overlay { opacity: 1; }
+    .content-overlay-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .content-overlay-meta {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.6);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .content-play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%) scale(0.7);
+      opacity: 0;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(160,32,240,0.9);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .content-play svg { width: 18px; height: 18px; fill: white; margin-left: 2px; }
+    .content-item:hover .content-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+
+    /* ═══════════════════════════════════════════════════════
+       6. CTA + CONTACT
+    ═══════════════════════════════════════════════════════ */
+    #contact {
+      padding: clamp(80px, 10vw, 140px) 0;
+    }
+
+    .cta-block {
+      background: linear-gradient(135deg, rgba(160,32,240,0.15) 0%, rgba(108,0,204,0.1) 50%, rgba(5,5,5,0) 100%);
+      border: 1px solid rgba(160,32,240,0.2);
+      border-radius: 24px;
+      padding: clamp(48px, 6vw, 80px) clamp(32px, 5vw, 80px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 80px;
+    }
+    .cta-block::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(160,32,240,0.1) 0%, transparent 70%);
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .cta-label { margin-bottom: 20px; }
+    .cta-label.center { display: flex; justify-content: center; align-items: center; }
+
+    .cta-h2 {
+      font-size: clamp(2.2rem, 4.5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .cta-h2 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent) 0%, #E040FB 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      max-width: 500px;
+      margin: 0 auto 36px;
+      line-height: 1.8;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Contact form */
+    .contact-form-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .contact-form-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .contact-form-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .form-field label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .form-field input,
+    .form-field textarea {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      width: 100%;
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(160,32,240,0.12);
+    }
+    .form-field textarea { resize: vertical; min-height: 120px; }
+
+    .form-submit .btn { width: 100%; justify-content: center; }
+
+    /* ═══════════════════════════════════════════════════════
+       7. FOOTER
+    ═══════════════════════════════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--glass-border);
+      padding: 40px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .footer-logo span { color: var(--accent); }
+
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social-link {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .footer-social-link:hover {
+      background: rgba(160,32,240,0.15);
+      border-color: rgba(160,32,240,0.4);
+      transform: translateY(-2px);
+    }
+    .footer-social-link svg { width: 18px; height: 18px; fill: var(--text-muted); transition: fill 0.2s; }
+    .footer-social-link:hover svg { fill: var(--accent); }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .hero-inner { flex-direction: column; text-align: center; padding-block: 60px; }
+      .hero-sub { margin-inline: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-social-proof { justify-content: center; }
+      .hero-image-wrap { flex: 0 0 auto; width: min(340px, 80vw); }
+      .hero-float-card { left: 0; }
+      .hero-float-card-2 { right: 0; }
+
+      .about-inner { flex-direction: column; }
+      .services-grid { grid-template-columns: 1fr; }
+      .content-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .stat-divider { display: none; }
+      .stats-inner { justify-content: space-around; }
+    }
+
+    @media (max-width: 600px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .about-visual { grid-template-columns: 1fr; }
+      .about-card.span-2 { grid-column: span 1; }
+      .hero-float-card, .hero-float-card-2 { display: none; }
+      .footer-inner { flex-direction: column; align-items: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cursor glow effect -->
+<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════════════ -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="Alexandra Voss – Home">AV<span>.</span></a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#stats">Stats</a></li>
+        <li><a href="#content">Content</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+  <a href="#about"    class="mob-link">About</a>
+  <a href="#services" class="mob-link">Services</a>
+  <a href="#stats"    class="mob-link">Stats</a>
+  <a href="#content"  class="mob-link">Content</a>
+  <a href="#contact"  class="mob-link">Contact</a>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     1. HERO
+═══════════════════════════════════════════════════════ -->
+<section id="hero" aria-labelledby="hero-h1">
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Text -->
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <span class="dot" aria-hidden="true"></span>
+          Available for Brand Partnerships · 2025
+        </div>
+
+        <h1 class="hero-h1" id="hero-h1">
+          Build Your Brand.<br>
+          Grow Your<br>
+          <em>Audience.</em>
+        </h1>
+
+        <p class="hero-sub">
+          I help creators and businesses turn content into community — and community into revenue. Strategy, storytelling, and systems that actually scale.
+        </p>
+
+        <div class="hero-actions">
+          <a href="/website/index.html?template=personal#contact" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+            Use This Template
+          </a>
+          <a href="#content" class="btn btn-ghost">View My Work ↓</a>
+        </div>
+
+        <div class="hero-social-proof">
+          <div class="avatar-stack" aria-label="Community members">
+            <div class="av">JL</div>
+            <div class="av" style="background:linear-gradient(135deg,#6C00CC,#A020F0)">MR</div>
+            <div class="av" style="background:linear-gradient(135deg,#0066CC,#A020F0)">KP</div>
+            <div class="av" style="background:linear-gradient(135deg,#CC0066,#A020F0)">ST</div>
+          </div>
+          <p class="proof-text"><strong>500+ creators</strong> already transformed their brand</p>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="hero-image-wrap" aria-hidden="true">
+        <div class="hero-img-frame">
+          <div class="hero-img-placeholder">
+            <!-- Replace with: <img src="your-photo.jpg" alt="Alexandra Voss" /> -->
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <span>YOUR PHOTO HERE</span>
+          </div>
+        </div>
+
+        <div class="hero-float-card">
+          <div class="float-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <div>
+            <div class="float-label">Community</div>
+            <div class="float-value">150k+</div>
+          </div>
+        </div>
+
+        <div class="hero-float-card-2">
+          <div class="float-stars">★★★★★</div>
+          <div class="float-review"><strong>Sarah K.</strong> — "Completely transformed my brand"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     2. ABOUT
+═══════════════════════════════════════════════════════ -->
+<section id="about" aria-labelledby="about-h2">
+  <div class="container">
+    <div class="about-inner">
+
+      <div class="about-left reveal">
+        <span class="section-label">About Me</span>
+        <h2 class="about-h2" id="about-h2">Strategist.<br>Creator.<br><em>Community builder.</em></h2>
+        <p class="about-p">
+          I've spent the last 7 years obsessing over what makes content convert — not just go viral. There's a difference between attention and trust, and I help you build both through authentic storytelling and smart systems.
+        </p>
+        <p class="about-p">
+          From solo creators to 8-figure brands, the playbook is the same: know your audience, serve them relentlessly, and build infrastructure that scales without burning out.
+        </p>
+        <div class="about-chips">
+          <span class="chip">Content Strategy</span>
+          <span class="chip">Brand Voice</span>
+          <span class="chip">Growth Systems</span>
+          <span class="chip">Monetisation</span>
+          <span class="chip">Partnerships</span>
+          <span class="chip">Community</span>
+        </div>
+      </div>
+
+      <div class="about-right reveal reveal-delay-2">
+        <div class="about-visual">
+          <div class="about-card">
+            <div class="about-card-num">7+</div>
+            <div class="about-card-label">Years of Experience</div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-num">$2M+</div>
+            <div class="about-card-label">Revenue Generated</div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-num">94%</div>
+            <div class="about-card-label">Client Retention Rate</div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-num">300+</div>
+            <div class="about-card-label">Brands Collaborated</div>
+          </div>
+          <div class="about-card span-2">
+            <div class="about-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 1l9 4v6c0 5.25-3.84 10.74-9 12-5.16-1.26-9-6.75-9-12V5l9-4z"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:600;font-size:0.95rem;margin-bottom:4px">Featured in Forbes, Entrepreneur & Inc.</div>
+              <div class="about-card-label">Top 40 Under 40 Digital Creators · 2024</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     3. SERVICES
+═══════════════════════════════════════════════════════ -->
+<section id="services" aria-labelledby="services-h2">
+  <div class="container">
+    <div class="services-header reveal">
+      <span class="section-label">What I Offer</span>
+      <h2 class="services-h2" id="services-h2">Services Built to<br>Scale Your Brand</h2>
+      <p class="services-sub">Every engagement is tailored. No templates, no cookie-cutter decks — just strategies built around your specific audience and goals.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- Card 1: Content -->
+      <article class="service-card reveal reveal-delay-1">
+        <div class="service-card-num">01</div>
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        </div>
+        <h3>Content Creation</h3>
+        <p>From short-form video to long-form essays — I craft content that stops the scroll and starts conversations. Every piece built around your brand voice and audience intent.</p>
+        <div class="service-link">
+          Explore <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg>
+        </div>
+      </article>
+
+      <!-- Card 2: Partnerships -->
+      <article class="service-card reveal reveal-delay-2">
+        <div class="service-card-num">02</div>
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <h3>Brand Partnerships</h3>
+        <p>Strategic collaborations that don't feel like ads. I negotiate, create, and manage partnerships with brands your audience actually loves — maximising authenticity and ROI.</p>
+        <div class="service-link">
+          Explore <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg>
+        </div>
+      </article>
+
+      <!-- Card 3: Coaching -->
+      <article class="service-card reveal reveal-delay-3">
+        <div class="service-card-num">03</div>
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+        </div>
+        <h3>Creator Coaching</h3>
+        <p>1:1 and group programmes for creators ready to go from side project to full-time business. Systems, mindset, and monetisation — everything I wish I knew in year one.</p>
+        <div class="service-link">
+          Explore <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg>
+        </div>
+      </article>
+
+      <!-- Card 4: Growth -->
+      <article class="service-card reveal reveal-delay-4">
+        <div class="service-card-num">04</div>
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+        </div>
+        <h3>Growth Strategy</h3>
+        <p>Data-informed, human-centred growth plans. Platform algorithms, posting cadence, distribution, and the metrics that actually predict long-term audience retention and revenue.</p>
+        <div class="service-link">
+          Explore <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     4. SOCIAL STATS
+═══════════════════════════════════════════════════════ -->
+<section id="stats" aria-label="Social media statistics">
+  <div class="stats-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="stats-inner reveal">
+
+      <div class="stat-item">
+        <div class="stat-platform" aria-hidden="true">
+          <!-- Instagram icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="url(#ig-grad)" stroke-width="2" width="20" height="20">
+            <defs>
+              <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#f09433"/>
+                <stop offset="25%" stop-color="#e6683c"/>
+                <stop offset="50%" stop-color="#dc2743"/>
+                <stop offset="75%" stop-color="#cc2366"/>
+                <stop offset="100%" stop-color="#bc1888"/>
+              </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="#dc2743" stroke="none"/>
+          </svg>
+          <span style="font-size:0.78rem;color:var(--text-muted);font-weight:500">Instagram</span>
+        </div>
+        <div class="stat-num">150k<span style="font-size:1.5rem">+</span></div>
+        <div class="stat-label">Followers</div>
+      </div>
+
+      <div class="stat-divider" aria-hidden="true"></div>
+
+      <div class="stat-item">
+        <div class="stat-platform" aria-hidden="true">
+          <!-- YouTube icon -->
+          <svg viewBox="0 0 24 24" fill="#FF0000" width="20" height="20">
+            <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/>
+          </svg>
+          <span style="font-size:0.78rem;color:var(--text-muted);font-weight:500">YouTube</span>
+        </div>
+        <div class="stat-num">82k<span style="font-size:1.5rem">+</span></div>
+        <div class="stat-label">Subscribers</div>
+      </div>
+
+      <div class="stat-divider" aria-hidden="true"></div>
+
+      <div class="stat-item">
+        <div class="stat-platform" aria-hidden="true">
+          <!-- TikTok icon (simplified) -->
+          <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.83 1.55V6.79a4.85 4.85 0 01-1.06-.1z"/>
+          </svg>
+          <span style="font-size:0.78rem;color:var(--text-muted);font-weight:500">TikTok</span>
+        </div>
+        <div class="stat-num">210k<span style="font-size:1.5rem">+</span></div>
+        <div class="stat-label">Followers</div>
+      </div>
+
+      <div class="stat-divider" aria-hidden="true"></div>
+
+      <div class="stat-item">
+        <div class="stat-platform" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="var(--accent)" width="20" height="20"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span style="font-size:0.78rem;color:var(--text-muted);font-weight:500">Newsletter</span>
+        </div>
+        <div class="stat-num">45k<span style="font-size:1.5rem">+</span></div>
+        <div class="stat-label">Subscribers</div>
+      </div>
+
+      <div class="stat-divider" aria-hidden="true"></div>
+
+      <div class="stat-item">
+        <div class="stat-platform" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="#F59E0B" width="20" height="20"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span style="font-size:0.78rem;color:var(--text-muted);font-weight:500">Avg. Rating</span>
+        </div>
+        <div class="stat-num">4.9<span style="font-size:1.5rem">★</span></div>
+        <div class="stat-label">Client Score</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     5. CONTENT GRID
+═══════════════════════════════════════════════════════ -->
+<section id="content" aria-labelledby="content-h2">
+  <div class="container">
+    <div class="content-header">
+      <div class="reveal">
+        <span class="section-label">Featured Work</span>
+        <h2 class="content-h2" id="content-h2">Latest Content</h2>
+      </div>
+      <a href="#" class="btn btn-ghost reveal" style="flex-shrink:0">View All →</a>
+    </div>
+
+    <div class="content-grid reveal" role="list">
+
+      <article class="content-item" role="listitem" tabindex="0" aria-label="Content: How I Hit 100k in 6 Months">
+        <div class="content-thumb content-thumb-1 thumb-div"></div>
+        <div class="thumb-inner" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>VIDEO</span>
+        </div>
+        <div class="content-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="content-overlay">
+          <div class="content-overlay-title">How I Hit 100k in 6 Months</div>
+          <div class="content-overlay-meta">
+            <span>↑ 2.4M views</span>
+            <span>♥ 84k</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="content-item" role="listitem" tabindex="0" aria-label="Content: My $0 Brand Partnership Strategy">
+        <div class="content-thumb content-thumb-2"></div>
+        <div class="thumb-inner" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>VIDEO</span>
+        </div>
+        <div class="content-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="content-overlay">
+          <div class="content-overlay-title">My $0 Brand Partnership Strategy</div>
+          <div class="content-overlay-meta"><span>↑ 1.8M views</span><span>♥ 62k</span></div>
+        </div>
+      </article>
+
+      <article class="content-item" role="listitem" tabindex="0" aria-label="Content: Content Burnout — What I Did">
+        <div class="content-thumb content-thumb-3"></div>
+        <div class="thumb-inner" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>VIDEO</span>
+        </div>
+        <div class="content-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="content-overlay">
+          <div class="content-overlay-title">Content Burnout — What I Did</div>
+          <div class="content-overlay-meta"><span>↑ 1.2M views</span><span>♥ 48k</span></div>
+        </div>
+      </article>
+
+      <article class="content-item" role="listitem" tabindex="0" aria-label="Content: The Algorithm Is Not Your Enemy">
+        <div class="content-thumb content-thumb-4"></div>
+        <div class="thumb-inner" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>VIDEO</span>
+        </div>
+        <div class="content-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="content-overlay">
+          <div class="content-overlay-title">The Algorithm Is Not Your Enemy</div>
+          <div class="content-overlay-meta"><span>↑ 980k views</span><span>♥ 37k</span></div>
+        </div>
+      </article>
+
+      <article class="content-item" role="listitem" tabindex="0" aria-label="Content: Monetising Under 10k Followers">
+        <div class="content-thumb content-thumb-5"></div>
+        <div class="thumb-inner" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>VIDEO</span>
+        </div>
+        <div class="content-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="content-overlay">
+          <div class="content-overlay-title">Monetising Under 10k Followers</div>
+          <div class="content-overlay-meta"><span>↑ 754k views</span><span>♥ 29k</span></div>
+        </div>
+      </article>
+
+      <article class="content-item" role="listitem" tabindex="0" aria-label="Content: Building in Public — Year in Review">
+        <div class="content-thumb content-thumb-6"></div>
+        <div class="thumb-inner" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>VIDEO</span>
+        </div>
+        <div class="content-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="content-overlay">
+          <div class="content-overlay-title">Building in Public — Year in Review</div>
+          <div class="content-overlay-meta"><span>↑ 620k views</span><span>♥ 24k</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     6. CTA + CONTACT
+═══════════════════════════════════════════════════════ -->
+<section id="contact" aria-labelledby="cta-h2">
+  <div class="container">
+
+    <!-- CTA Block -->
+    <div class="cta-block reveal">
+      <div class="cta-label center">
+        <span class="section-label" style="margin-bottom:0">Work Together</span>
+      </div>
+      <h2 class="cta-h2" id="cta-h2">
+        Ready to Build Something<br><em>Extraordinary?</em>
+      </h2>
+      <p class="cta-sub">
+        Whether you're a brand looking for the right creator, or a creator ready to go full-time — let's build a strategy that actually works.
+      </p>
+      <div class="cta-actions">
+        <a href="/website/index.html?template=personal#contact" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+          Use This Template
+        </a>
+        <a href="mailto:hello@alexandravoss.com" class="btn btn-ghost">Send an Email →</a>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form-wrap reveal">
+      <h3 class="contact-form-title">Get In Touch</h3>
+      <p class="contact-form-sub">Fill out the form below and I'll get back to you within 48 hours.</p>
+
+      <div class="form-field">
+        <label for="contact-name">Your Name</label>
+        <input type="text" id="contact-name" name="name" placeholder="Jane Smith" autocomplete="name" />
+      </div>
+
+      <div class="form-field">
+        <label for="contact-email">Email Address</label>
+        <input type="email" id="contact-email" name="email" placeholder="jane@yourcompany.com" autocomplete="email" />
+      </div>
+
+      <div class="form-field">
+        <label for="contact-message">Tell Me About Your Goals</label>
+        <textarea id="contact-message" name="message" placeholder="I'm a creator with 20k followers and I want to start monetising through partnerships..."></textarea>
+      </div>
+
+      <div class="form-submit">
+        <button type="button" class="btn btn-primary" onclick="handleFormSubmit(this)">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          Send Message
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     7. FOOTER
+═══════════════════════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#hero" class="footer-logo" aria-label="Alexandra Voss – Back to top">AV<span>.</span></a>
+
+      <nav class="footer-socials" aria-label="Social media links">
+        <!-- Instagram -->
+        <a href="#" class="footer-social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="7" r="1.5"/></svg>
+        </a>
+        <!-- YouTube -->
+        <a href="#" class="footer-social-link" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
+        </a>
+        <!-- TikTok -->
+        <a href="#" class="footer-social-link" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.77 0 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 105.33 6.33V8.69a8.18 8.18 0 004.83 1.55V6.79a4.85 4.85 0 01-.85-.1z"/></svg>
+        </a>
+        <!-- Twitter/X -->
+        <a href="#" class="footer-social-link" aria-label="Twitter / X">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <!-- LinkedIn -->
+        <a href="#" class="footer-social-link" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </nav>
+
+      <p class="footer-copy">© <span id="yr"></span> Alexandra Voss. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════ -->
+<script>
+  /* — Cursor glow — */
+  const glow = document.getElementById('cursor-glow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top  = e.clientY + 'px';
+  });
+
+  /* — Navbar scroll — */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  /* — Hamburger / mobile nav — */
+  const ham   = document.getElementById('hamburger');
+  const mobNav = document.getElementById('mobile-nav');
+
+  ham.addEventListener('click', () => {
+    const open = mobNav.classList.toggle('open');
+    ham.classList.toggle('open', open);
+    ham.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  document.querySelectorAll('.mob-link').forEach(l => {
+    l.addEventListener('click', () => {
+      mobNav.classList.remove('open');
+      ham.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* — Intersection Observer: reveal-on-scroll — */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  /* — Form submit — */
+  function handleFormSubmit(btn) {
+    const name  = document.getElementById('contact-name').value.trim();
+    const email = document.getElementById('contact-email').value.trim();
+    const msg   = document.getElementById('contact-message').value.trim();
+
+    if (!name || !email || !msg) {
+      btn.textContent = 'Please fill in all fields';
+      setTimeout(() => {
+        btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg> Send Message';
+      }, 2000);
+      return;
+    }
+
+    btn.innerHTML = '✓ Message Sent!';
+    btn.style.background = '#22c55e';
+    btn.disabled = true;
+    document.getElementById('contact-name').value = '';
+    document.getElementById('contact-email').value = '';
+    document.getElementById('contact-message').value = '';
+  }
+
+  /* — Footer year — */
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

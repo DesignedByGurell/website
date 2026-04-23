@@ -1,0 +1,14 @@
+{
+  "name": "Local Service Business Template",
+  "description": "A modern, high-converting website template for local service businesses like plumbers, electricians, or cleaning services, featuring a responsive design and essential sections.",
+  "entry": "index.html",
+  "multiPage": false,
+  "files": [
+    "index.html",
+    "metadata.json"
+  ],
+  "tailwind": {
+    "source": "play-cdn"
+  },
+  "generatedAt": "2024-07-30T12:00:00Z"
+}
