@@ -38,6 +38,24 @@
 </head>
 <body class="font-sans antialiased text-gray-800">
 
+    /* Add this to the top of your existing <style> tag */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* This prevents long words or big images from pushing the screen wide */
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
     <!-- Header/Hero Section -->
     <header class="hero-background bg-blue-700 text-white py-20 md:py-32 relative overflow-hidden">
         <div class="absolute inset-0 bg-blue-900 opacity-70"></div>
