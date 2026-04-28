@@ -52,6 +52,33 @@
     pointer-events: none; z-index: 1000; opacity: 0.35;
   }
 
+  /* Mobile Fix*/
+
+  /* Fix for mobile zoom/overflow */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure images and long headers don't push the screen wide */
+img, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+h1, h2, h3 {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Fix for containers that might have fixed widths */
+.container, .services, .hero {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  box-sizing: border-box;
+}
+
    /* BACK TO TOP */ 
 
  #backToTop {
