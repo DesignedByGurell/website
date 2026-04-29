@@ -107,24 +107,27 @@ h1, h2, h3 {
   justify-content: center;
 }
 
+/* Fix for buttons cutting off text */
 .btn-primary, .btn-outline {
-  white-space: nowrap; /* Forces "Get Started" to stay on one line */
-  padding: 14px 28px;   /* Gives the text more room */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: fit-content; /* Prevents the box from being smaller than the text */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;      /* Stops text from splitting */
+    padding: 14px 28px;        /* Increases padding so letters aren't on the edge */
+    min-width: fit-content;    /* Ensures box grows with the text */
+    text-align: center;
 }
 
 @media (max-width: 480px) {
-  .hero-btns {
-    flex-direction: column; /* Stacks buttons vertically on small phones */
-    width: 100%;
-    align-items: center;
-  }
-  .btn-primary, .btn-outline {
-    width: 90%; /* Makes buttons a nice uniform size on mobile */
-  }
+    .hero-btns {
+        flex-direction: column !important; /* Stacks buttons vertically on mobile */
+        gap: 15px;
+        width: 100%;
+        align-items: center;
+    }
+    .btn-primary, .btn-outline {
+        width: 90%; /* Makes buttons wider so text fits comfortably */
+    }
 }
 
   /* NAV */
@@ -261,15 +264,25 @@ h1, h2, h3 {
   }
   .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
 
-  .hero-h1 {
+   {
   word-wrap: break-word;
   overflow-wrap: break-word;
   padding: 0 10px; /* Gives the text a small buffer from the screen edge */
 }
 
+/* Fix for heading text cutting off */
+.hero-h1 {
+    font-size: clamp(2.5rem, 8vw, 4.5rem); /* Dynamically shrinks text for small screens */
+    line-height: 1.1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding: 0 15px; /* Adds a safety buffer on the left and right */
+}
+
+/* Ensure the accent span doesn't clip its last letter */
 .hero-h1 span.accent {
-  display: inline-block; /* Ensures the accented text is treated as one block */
-  padding-right: 4px;    /* Adds a tiny bit of space for that final 'e' */
+    display: inline-block;
+    padding-right: 5px; 
 }
 
   /* STATS */
