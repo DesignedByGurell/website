@@ -107,27 +107,17 @@ h1, h2, h3 {
   justify-content: center;
 }
 
-/* Fix for buttons cutting off text */
 .btn-primary, .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;      /* Stops text from splitting */
-    padding: 14px 28px;        /* Increases padding so letters aren't on the edge */
-    min-width: fit-content;    /* Ensures box grows with the text */
-    text-align: center;
-}
-
-@media (max-width: 480px) {
-    .hero-btns {
-        flex-direction: column !important; /* Stacks buttons vertically on mobile */
-        gap: 15px;
-        width: 100%;
-        align-items: center;
-    }
-    .btn-primary, .btn-outline {
-        width: 90%; /* Makes buttons wider so text fits comfortably */
-    }
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px !important;
+  border-radius: 50px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap !important; /* Forces "Get Started" to stay on one line */
+  min-width: 160px; /* Ensures the box is wide enough for the text */
 }
 
   /* NAV */
