@@ -17,12 +17,12 @@
     --primary-blue: #1e6aa8;
     --accent-blue: #2f80c7;
     --glow: rgba(30,106,168,0.18);
-    --glow2: rgba(30,106,168,0.08);
+    --glow2: rgba(47,128,199,0.12);
     --white: #f8fafc;
     --grey: #94a3b8;
     --light-bg: #f0f4f8;
     --card-bg: rgba(255,255,255,0.04);
-    --border: rgba(255,255,255,0.08);
+    --border: rgba(47,128,199,0.25);
     --border2: rgba(255,255,255,0.08);
     --text: #e2e8f0;
     --muted: #64748b;
@@ -30,6 +30,16 @@
     --font-body: 'Inter', sans-serif;
     --transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
   }
+
+  svg {
+  fill: var(--cyan2);
+  stroke: var(--cyan2);
+  transition: 0.3s;
+}
+
+.card:hover svg {
+  fill: var(--accent-blue);
+}
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; font-size: 16px; }
