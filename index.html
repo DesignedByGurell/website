@@ -99,16 +99,32 @@ h1, h2, h3 {
   z-index: 9999;
 }
 
-  /* Add this to the root index.html <style> tag */
-html, body {
-  max-width: 100vw;
-  overflow-x: hidden; /* Prevents side-to-side scrolling and cutting off elements */
+ /* Add this to your root index.html <style> tag */
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap; /* Allows buttons to stack instead of crushing each other */
+  justify-content: center;
 }
 
-.hero-content a {
-  display: inline-block;
-  white-space: nowrap; /* Ensures the button text stays on one line */
-  max-width: 90vw;     /* Keeps the button within the screen width */
+.btn-primary, .btn-outline {
+  white-space: nowrap; /* Forces "Get Started" to stay on one line */
+  padding: 14px 28px;   /* Gives the text more room */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: fit-content; /* Prevents the box from being smaller than the text */
+}
+
+@media (max-width: 480px) {
+  .hero-btns {
+    flex-direction: column; /* Stacks buttons vertically on small phones */
+    width: 100%;
+    align-items: center;
+  }
+  .btn-primary, .btn-outline {
+    width: 90%; /* Makes buttons a nice uniform size on mobile */
+  }
 }
 
   /* NAV */
@@ -244,6 +260,17 @@ html, body {
     text-decoration: none; border-radius: 2px; transition: all 0.25s;
   }
   .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
+
+  .hero-h1 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding: 0 10px; /* Gives the text a small buffer from the screen edge */
+}
+
+.hero-h1 span.accent {
+  display: inline-block; /* Ensures the accented text is treated as one block */
+  padding-right: 4px;    /* Adds a tiny bit of space for that final 'e' */
+}
 
   /* STATS */
   .stats-bar {
