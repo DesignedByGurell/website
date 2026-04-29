@@ -131,6 +131,17 @@ h1, h2, h3 {
     backdrop-filter: blur(20px);
   }
 
+    @media (max-width: 768px) {
+  nav {
+    padding: 1rem 1.5rem; /* smaller padding on mobile */
+  }
+
+  .nav-cta {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.75rem;
+  }
+}
+
   .logo {
     font-family: 'Syne', sans-serif;
     font-weight: 800; font-size: 1.3rem;
@@ -273,6 +284,11 @@ h1, h2, h3 {
 .hero-h1 span.accent {
     display: inline-block;
     padding-right: 5px; 
+}
+
+  .hero-h1 {
+  padding-left: 15px;
+  padding-right: 20px;
 }
 
   /* STATS */
@@ -689,11 +705,11 @@ h1, h2, h3 {
   <div class="hero-glow2"></div>
   <div class="hero-content">
     <div class="hero-badge">Template-Based Websites</div>
-    <h1>
+    <h1 class="hero-h1">
       Choose a<br>
       <span class="accent-purple">Website Template</span><br>
       <span class="accent-blue">I Customize It For You.</span>
-    </h1>
+    <h1 class="hero-h1">
     <p class="hero-sub">
       Start from a proven design instead of building from scratch. 
       Pick a template, send your content, and get a professional website live — fast.
