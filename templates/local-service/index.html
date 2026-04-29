@@ -10,13 +10,13 @@
     <style>
         /* Custom styles not easily covered by Tailwind */
         .hero-background {
-            background-image: url('https://images.unsplash.com/photo-1581092336214-e0540a7b372f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Placeholder image */
+            background-image: url('https://images.unsplash.com/photo-1581092336214-e0540a7b372f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
             background-size: cover;
             background-position: center;
         }
         .map-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%; 
             height: 0;
             overflow: hidden;
             max-width: 100%;
@@ -30,39 +30,36 @@
             height: 100%;
             border: 0;
         }
-        /* Smooth scroll for anchor links */
         html {
             scroll-behavior: smooth;
+        }
+
+        /* MOBILE FIXES - NOW INSIDE THE CORRECT TAG */
+        html, body {
+          max-width: 100vw;
+          overflow-x: hidden;
+          margin: 0;
+          padding: 0;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+
+        .service-link {
+          display: inline-block;
+          white-space: nowrap; 
+          padding: 12px 24px;
+          text-decoration: none;
         }
     </style>
 </head>
 <body class="font-sans antialiased text-gray-800">
-
-    /* Add this to the top of your existing <style> tag */
-html, body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-        .service-link {
-  display: inline-block;
-  white-space: nowrap; /* This stops the text from wrapping/breaking the box */
-  padding: 12px 24px;
-  text-decoration: none;
-  /* ... your other existing styles ... */
-}
-
-/* This prevents long words or big images from pushing the screen wide */
-* {
-  box-sizing: border-box;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
 
     <!-- Header/Hero Section -->
     <header class="hero-background bg-blue-700 text-white py-20 md:py-32 relative overflow-hidden">
