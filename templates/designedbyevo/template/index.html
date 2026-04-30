@@ -67,7 +67,7 @@
     padding: 1.1rem 4rem;
     display: flex; align-items: center; justify-content: space-between;
     background: rgba(80, 88, 165, 0.72);
-    opacity: 870%;
+    /*opacity: %;*/
     backdrop-filter: blur(18px);
     border-bottom: 1px solid var(--border2);
     transition: var(--transition);
@@ -145,6 +145,21 @@
                 radial-gradient(ellipse 60% 40% at 20% 100%, rgba(10,37,64,0.8) 0%, transparent 60%),
                 linear-gradient(180deg, #03112a 0%, #071c3a 60%, #03112a 100%);
   }
+  .hero h1 {
+  max-width: 800px;
+  line-height: 1.1;
+}
+
+.highlight {
+  background: linear-gradient(90deg, #1e4ed8, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.accent {
+  background: linear-gradient(90deg, #ff2b2b, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
   /* Grid lines */
   .hero-grid {
     position: absolute; inset: 0; z-index: 0;
@@ -591,7 +606,10 @@
   <canvas id="hero-canvas"></canvas>
   <div class="hero-content">
     <div class="hero-badge"><span></span>ICT Solutions Provider · Durban, South Africa</div>
-    <h1 class="hero-h1">Power Your Business<br>in the <span class="accent">Cloud Era</span></h1>
+    <h1>
+  <span class="accent">Power Your Business <br>
+  in the <span class="accent">Cloud Era</span>
+</h1>
     <p class="hero-sub">Smart ICT solutions, cloud services, and network infrastructure built for modern businesses that demand performance, security, and scale.</p>
     <div class="hero-btns" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
     <div style="display: flex; gap: 1rem; justify-content: center; width: 100%;">
